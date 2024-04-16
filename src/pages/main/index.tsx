@@ -25,7 +25,7 @@ export default function Main() {
   };
 
   const handleDetailsTask = () => {
-    navigation.navigate('details')
+    navigation.navigate('details');
   };
 
   const renderTaskItem = ({ item }: {item: { id: number; title: string; completed: boolean }}) => (
