@@ -24,7 +24,7 @@ export default function Main() {
     setTaskList(filteredTaskList);
   };
 
-  const handleDetailsTask = (id: number) => {
+  const handleDetailsTask = () => {
     navigation.navigate('details')
   };
 
