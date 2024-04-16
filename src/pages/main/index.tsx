@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 export default function Main() {
   const [task, setTask] = useState('');
   const [taskList, setTaskList] = useState([] as { id: number; title: string; completed: boolean }[]);
-  
+  const navigation = useNavigation()
 
   const handleAddTask = () => {
     if (task.trim() !== '') {
@@ -25,7 +25,7 @@ export default function Main() {
   };
 
   const handleDetailsTask = (id: number) => {
-    
+    navigation.navigate('details')
   };
 
   const renderTaskItem = ({ item }: {item: { id: number; title: string; completed: boolean }}) => (
