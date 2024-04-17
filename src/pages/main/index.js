@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-
 export default function Main() {
   const [task, setTask] = useState('');
-  const [taskList, setTaskList] = useState([] as { id: number; title: string; completed: boolean }[]);
-  const navigation = useNavigation()
+  const [taskList, setTaskList] = useState([]);
+  //const navigation = useNavigation();
 
   const handleAddTask = () => {
     if (task.trim() !== '') {
@@ -15,11 +14,11 @@ export default function Main() {
     }
   };
 
-  const handleToggleTask = (id: number) => {
+  const handleToggleTask = (id) => {
     
   };
 
-  const handleRemoveTask = (id: number) => {
+  const handleRemoveTask = (id) => {
     const filteredTaskList = taskList.filter(task => task.id !== id);
     setTaskList(filteredTaskList);
   };
@@ -28,7 +27,7 @@ export default function Main() {
     navigation.navigate('details');
   };
 
-  const renderTaskItem = ({ item }: {item: { id: number; title: string; completed: boolean }}) => (
+  const renderTaskItem = ({ item }) => (
     <View style={styles.taskContainer}>
       <Text style={[styles.taskText, item.completed && styles.completedTask]}>{item.title}</Text>
       <View style={styles.buttonContainer}>
