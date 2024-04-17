@@ -1,10 +1,9 @@
-// routes.js
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-import Main from './pages/main/index';
-import Details from './pages/details/details';
+import Main from './pages/main';
+import Details from './pages/details';
 
 const Stack = createStackNavigator();
 
@@ -16,10 +15,11 @@ export default function Routes() {
           name="main"
           component={Main}
           options={{
-            title: 'MAIN',
+            title: 'Gerenciador de Tarefas',
             headerTitleAlign: 'center',
+            headerLeft: null,
             headerStyle: {
-              backgroundColor: '#3498db',
+              backgroundColor: '#0d3b66',
             },
             headerTitleStyle: {
               fontWeight: 'bold',
@@ -31,10 +31,10 @@ export default function Routes() {
           name="details"
           component={Details}
           options={{
-            title: 'DETAILS',
+            title: 'Detalhes da tarefa',
             headerTitleAlign: 'center',
             headerStyle: {
-              backgroundColor: '#3498db',
+              backgroundColor: '#0d3b66',
             },
             headerTitleStyle: {
               fontWeight: 'bold',
