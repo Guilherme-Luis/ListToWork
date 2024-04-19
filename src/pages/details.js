@@ -2,33 +2,36 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 
 export default function Details({ route, navigation }) {
-  const { taskId } = route.params;
-  const [title, setTitle] = useState('');
-  const [status, setStatus] = useState('');
-  const [description, setDescription] = useState('');
+  const { task } = route.params;
+  const [title, setTitle] = useState(task.title);
+  const [status, setStatus] = useState(task.status);
+  const [description, setDescription] = useState(task.description);
+
+  const toggleStatus = () => {
+    setStatus(status === 'pendente' ? 'concluido' : 'pendente');
+  };
 
   const saveChanges = () => {
-    // Implemente aqui a lógica para salvar as alterações na tarefa
     navigation.goBack();
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Titulo</Text>
+      <Text style={styles.label}>Título</Text>
       <TextInput
         style={styles.input}
-        placeholder="Title"
-        value={taskId.title}
+        placeholder="Título"
+        value={title}
         onChangeText={text => setTitle(text)}
       />
 
       <Text style={styles.label}>Status da Tarefa</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Status"
-        value={status}
-        onChangeText={text => setStatus(text)}
-      />
+      <TouchableOpacity
+        style={[styles.statusButton, {backgroundColor: status === 'pendente' ? '#0d3b66' : '#f95738'}, {borderColor: status === 'pendente' ? '#0d3b66' : '#f95738'}]}
+        onPress={toggleStatus}
+      >
+        <Text style={styles.statusButtonText}>{status === 'pendente' ? 'Concluído' : 'Pendente'}</Text>
+      </TouchableOpacity>
 
       <Text style={styles.label}>Descrição</Text>
       <TextInput
@@ -49,7 +52,7 @@ export default function Details({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#faf0ca',
     padding: 20,
   },
   label: {
@@ -59,18 +62,32 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#0d3b66',
     borderRadius: 5,
     padding: 10,
     marginBottom: 20,
   },
   descriptionInput: {
     height: 150,
-    textAlignVertical: 'top', // Permite que o texto seja alinhado ao topo
+    textAlignVertical: 'top', 
+  },
+  statusButton: {
+    backgroundColor: '#0d3b66', 
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  statusButtonText: {
+    color: '#fff',
+    fontSize: 16,
   },
   saveButton: {
     backgroundColor: '#0d3b66',
-    padding: 10,
+    flexDirection: 'center',
+    height: 45,
+    padding: 13,
     borderRadius: 5,
     alignItems: 'center',
   },

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Main() {
@@ -9,8 +9,10 @@ export default function Main() {
 
   const handleAddTask = () => {
     if (task.trim() !== '') {
-      setTaskList([...taskList, { id: Date.now(), title: task, completed: false }]);
+      setTaskList([...taskList, { id: Date.now(), title: task, status: '', description: '', completed: false }]);
       setTask('');
+    } else {
+      Alert.alert('Campo vazio', 'Por favor, insira uma nova tarefa.');
     }
   };
 
@@ -19,19 +21,19 @@ export default function Main() {
     setTaskList(filteredTaskList);
   };
 
-  const handleDetailsTask = (id) => {
-    navigation.navigate('details', { taskId: id })
+  const navigateToDetails = (task) => {
+    navigation.navigate('details', { task });
   };
 
   const renderTaskItem = ({ item }) => (
     <View style={styles.taskContainer}>
-      <Text style={[styles.taskText, item.completed && styles.completedTask]}>{item.title}</Text>
+      <Text style={[styles.taskText]}>{item.title}</Text>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={() => handleDetailsTask(item.id)} style={[styles.button, styles.detailsButton]}>
-          <Text style={styles.buttonText}>Details</Text>
+        <TouchableOpacity onPress={() => navigateToDetails(item)} style={[styles.button, styles.detailsButton]}>
+          <Text style={styles.buttonText}>Detalhes</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => handleRemoveTask(item.id)} style={[styles.button, styles.deleteButton]}>
-          <Text style={styles.buttonText}>Delete</Text>
+          <Text style={styles.buttonText}>Apagar</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -42,13 +44,13 @@ export default function Main() {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Add new task"
+          placeholder="Adicionar nova tarefa"
           value={task}
           onChangeText={text => setTask(text)}
           onSubmitEditing={handleAddTask}
         />
         <TouchableOpacity style={styles.addButton} onPress={handleAddTask}>
-          <Text style={styles.addButtonText}>Add</Text>
+          <Text style={styles.addButtonText}>Adicionar</Text>
         </TouchableOpacity>
       </View>
       <FlatList
@@ -64,7 +66,7 @@ export default function Main() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#faf0ca',
     padding: 20,
   },
   inputContainer: {
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#0d3b66',
     borderRadius: 5,
     padding: 10,
     marginRight: 10,
@@ -97,17 +99,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   taskContainer: {
+    borderWidth: 2,
+    padding: 3,
+    borderColor: '#0d3b66',
+    borderRadius: 5,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 10,
   },
   taskText: {
+    padding: 5,
     fontSize: 18,
-  },
-  completedTask: {
-    textDecorationLine: 'line-through',
-    color: '#aaa',
   },
   button: {
     padding: 10,
@@ -121,7 +124,7 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     backgroundColor: '#f95738',
-    marginLeft: 5, // Adiciona margem à esquerda para espaçamento
+    marginLeft: 5,
   },
   detailsButton: {
     backgroundColor: '#0d3b66',
