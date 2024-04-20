@@ -8,10 +8,17 @@ export default function Details({ route, navigation }) {
   const [description, setDescription] = useState(task.description);
 
   const toggleStatus = () => {
-    setStatus(status === 'pendente' ? 'concluido' : 'pendente');
+    setStatus(currentStatus => {
+      const newStatus = currentStatus === 'pendente' ? 'concluído' : 'pendente';
+      task.status = newStatus;
+      return newStatus; 
+    });
   };
 
   const saveChanges = () => {
+    task.title = title;
+    task.status = status;
+    task.description = description;
     navigation.goBack();
   };
 

@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   input: {
+
     flex: 1,
     borderWidth: 1,
     borderColor: '#0d3b66',
@@ -99,6 +100,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   taskContainer: {
+    backgroundColor: '#f4d35e',
     borderWidth: 2,
     padding: 3,
     borderColor: '#0d3b66',
@@ -111,6 +113,7 @@ const styles = StyleSheet.create({
   taskText: {
     padding: 5,
     fontSize: 18,
+    fontWeight: 'bold',
   },
   button: {
     padding: 10,
